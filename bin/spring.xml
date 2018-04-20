@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--         Les Agents         --> 
+	<bean name="AgentTemp" class="layer.agents.TemperatureAgentImpl">
+		<constructor-arg index="0" value="Agent temperature"/>
+		<constructor-arg index="1" value="36"/>
+		<constructor-arg index="2" value="4"/>
+		<constructor-arg index="3" value="°C"/>
+	</bean>
+	
+	<bean name="AgentTemp2" class="layer.agents.TemperatureAgentImpl">
+		<constructor-arg index="0" value="Agent temperature 2"/>
+		<constructor-arg index="1" value="36"/>
+		<constructor-arg index="2" value="1"/>
+		<constructor-arg index="3" value="°C"/>
+	</bean>
+	
+	<bean name="AgentCardio" class="layer.agents.CardioAgentImpl">
+		<constructor-arg index="0" value="Agent cardio"/>
+		<constructor-arg index="1" value="130"/>
+		<constructor-arg index="2" value="40"/>
+		<constructor-arg index="3" value="Pulsation/Min"/>
+	</bean>
+	
+	<!--         Les Sensors         --> 
+	<bean name="SensorTemp" class="layer.sensors.TemperatureSensorImpl">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="Sensor temperature"/>
+		<constructor-arg index="2" value="°C"/>
+		<constructor-arg index="3" ref="AgentTemp"/>
+	</bean>
+	
+	<bean name="SensorTemp2" class="layer.sensors.TemperatureSensorImpl">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="Sensor temperature 2"/>
+		<constructor-arg index="2" value="°C"/>
+		<constructor-arg index="3" ref="AgentTemp2"/>
+	</bean>
+	
+	<bean name="SensorCardio" class="layer.sensors.CardioSensorImpl">
+		<constructor-arg index="0" value="2"/>
+		<constructor-arg index="1" value="Sensor cardio"/>
+		<constructor-arg index="2" value="Pulsations/Min"/>
+		<constructor-arg index="3" ref="AgentCardio"/>
+	</bean>
+	
+	<!--         Les Applications        --> 
+	<bean name="Application1" class="layer.applications.ApplicationImpl">
+		<constructor-arg index="0" value="Appli 1"/>
+	</bean>
+	
+	<bean name="Application2" class="layer.applications.ApplicationImpl">
+		<constructor-arg index="0" value="Appli 2"/>
+	</bean>
+	
+	
+	<bean name="MasterAgent" class="layer.agents.MasterAgent">
+		<property name="sensorsList">
+			<list>
+                <ref bean="SensorTemp" />
+                <ref bean="SensorCardio" />
+            </list>
+		</property>
+		<property name="applicationsList">
+			<list>
+                <ref bean="Application1" />
+                <ref bean="Application2" />
+                
+            </list>
+		</property>		
+		<property name="agApMap">
+			<map>
+	          <entry key-ref="AgentTemp" value-ref="Application1" />
+	          <entry key-ref="AgentCardio" value-ref="Application2" />
+            </map>
+		</property>
+	</bean>
+
+</beans>
