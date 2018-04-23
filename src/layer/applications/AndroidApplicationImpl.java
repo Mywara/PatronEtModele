@@ -37,4 +37,10 @@ public class AndroidApplicationImpl implements Application {
 		
 	}
 
+	@Override
+	public void sendData(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

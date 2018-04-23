@@ -12,5 +12,6 @@ public interface Application extends Runnable {
 	public String getName();
 	public void afficher(String s);
 	public void getNotifications(Agent ag);
+	public void sendData(String s);
 
 }

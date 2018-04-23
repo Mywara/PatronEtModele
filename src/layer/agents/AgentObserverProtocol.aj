@@ -17,6 +17,7 @@ public aspect AgentObserverProtocol extends ObserverProtocol {
 
 	protected void updateObserver(Subject s, Observer o) {
 		((Application) o).afficher(((Application) o).getName() + " : " + ((Agent) s).getName() + " : " + ((Agent) s).getData());
+		((Application) o).sendData(((Application) o).getName() + " : " + ((Agent) s).getName() + " : " + ((Agent) s).getData());
 		((Application) o).getNotifications((Agent) s);
 	}
 

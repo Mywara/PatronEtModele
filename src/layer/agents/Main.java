@@ -16,6 +16,7 @@ public class Main {
 		Resource resource = new ClassPathResource("spring.xml");
 		BeanFactory factory = new XmlBeanFactory(resource);
 		MasterAgent ma = (MasterAgent) factory.getBean("MasterAgent");
+		int i = 2;
 		ma.start();
 	}
 }

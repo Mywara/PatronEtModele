@@ -1,5 +1,8 @@
 package layer.applications;
 
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.rmi.RemoteException;
 
 import layer.agents.Agent;
@@ -13,7 +16,6 @@ public class ApplicationImpl implements Application {
 	
 	public String name;
 	private ApplicationJFrame appJFrame;
-	//ajout
 	public String s = "initialisation";
 	
 	
@@ -33,8 +35,10 @@ public class ApplicationImpl implements Application {
 
 	public void afficher(String s) {
 		System.out.println(s);
-		//ajout
-		this.s = s;
+		
+	}
+	public void sendData(String s) {
+		StartConnection(s);
 	}
 	
 	//ajout
@@ -50,6 +54,24 @@ public class ApplicationImpl implements Application {
 	@Override
 	public void run() {
 		
+	}
+	
+	public static void StartConnection(String data) {
+		// System.out.println("Start server");
+	    try {
+	       ServerSocket srvr = new ServerSocket(1234);
+	       Socket skt = srvr.accept();
+	     //  System.out.print("Server has connected!\n");
+	       PrintWriter out = new PrintWriter(skt.getOutputStream(), true);
+	      // System.out.print("Sending string: '" + data + "'\n");
+	       out.print(data);
+	       out.close();
+	       skt.close();
+	       srvr.close();
+	    }
+	    catch(Exception e) {
+	       System.out.print("Whoops! It didn't work!\n");
+	    }
 	}
 	
 }
